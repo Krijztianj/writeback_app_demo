@@ -15,5 +15,5 @@ select
 row_number() OVER(partition by 1 order by 1) AS product_id
 , product_name
 , cost_price
-, cost_price*2 as salesprice
+, cost_price*2 as sales_price
 from cost_price
