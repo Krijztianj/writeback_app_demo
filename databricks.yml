@@ -9,4 +9,4 @@ targets:
     mode: development
     default: true
     workspace:
-      host: xxx
+      host: https://myworkspace.databricks.com
