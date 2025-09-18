@@ -1,0 +1,8 @@
+resources:
+  apps:
+    price_update:
+      name: "price-update"
+      description: "App which manages price updates"
+
+      # The location of the source code for the app.
+      source_code_path: ../apps/price-update
