@@ -9,4 +9,4 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://myworkspace.databricks.com
+      host: https://dbc-381633f5-fe84.cloud.databricks.com/

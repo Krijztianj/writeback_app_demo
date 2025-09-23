@@ -1,0 +1,5 @@
+pytest>=8.0
+pandas>=2.0
+streamlit>=1.26
+databricks-cli>=0.17
+databricks-bundles>=0.2
