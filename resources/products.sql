@@ -1,4 +1,7 @@
-CREATE TABLE xxxx.xxxx.products AS 
+CREATE CATALOG IF NOT EXISTS app_demos;
+CREATE SCHEMA IF NOT EXISTS app_demos.writeback;
+
+CREATE TABLE IF NOT EXISTS app_demos.writeback.products AS 
 
 with product as (
 select distinct product 

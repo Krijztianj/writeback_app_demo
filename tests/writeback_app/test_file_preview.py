@@ -1,5 +1,5 @@
 import pandas as pd
-from app import apply_expr
+from apps.writeback_app.app import apply_expr
 
 def test_new_price_structure_preview():
     df = pd.DataFrame({

@@ -5,8 +5,15 @@ from databricks.sdk.core import Config
 
 
 # Constants
-WAREHOUSE_HTTP_PATH = "/sql/1.0/warehouses/341b0ab16cc13ff6"
-TABLE_NAME = "krjo_demo.dais_debrief.products"
+WAREHOUSE_HTTP_PATH = "/sql/1.0/warehouses/5eced0d6af754723"
+TABLE_NAME = "app_demos.writeback.products"
+
+def init_products_table(conn):
+    with open("resources/products.sql", "r") as f:
+        sql_script = f.read()
+
+    with conn.cursor() as cursor:
+        cursor.execute(sql_script)
 
 cfg = Config()
 
@@ -38,6 +45,24 @@ def apply_expr(old):
     if not re.fullmatch(r"[0-9+\-*/(). ]+", safe_expr):
         raise ValueError("Expression contains invalid characters")
     return eval(safe_expr)
+
+def generate_update_statements(df, column, table_name):
+    """Generate SQL UPDATE statements for the given column and DataFrame."""
+    statements = []
+    for row in df.itertuples(index=False):
+        stmt = f"""
+            UPDATE {table_name}
+            SET {column} = {row._asdict()[column]}
+            WHERE product_id = {row.product_id}
+        """
+        statements.append(stmt)
+    return statements
+
+def execute_statements(conn, statements):
+    """Execute a list of SQL statements using the given connection."""
+    with conn.cursor() as cursor:
+        for stmt in statements:
+            cursor.execute(stmt)
 
 if "prices_updated" not in st.session_state:
     st.session_state.prices_updated = False
@@ -115,20 +140,20 @@ elif update_pressed:
             "Sales Price": "sales_price"
         })
 
-        with conn.cursor() as cursor:
-            for row in temp_df.itertuples(index=False):
-                sql = f"""
-                    UPDATE {TABLE_NAME}
-                    SET {column} = {row._asdict()[column]}
-                    WHERE product_id = {row.product_id}
-                """
-                cursor.execute(sql)
+        # Generate and execute SQL statements
+        statements = generate_update_statements(temp_df, column, TABLE_NAME)
+        execute_statements(conn, statements)
+
         with output_container:
             st.success("Table updated successfully")
 
-        #Refresh the table at the top to show new prices 
+        # Refresh the table at the top to show new prices
         st.session_state.prices_updated = True
         st.rerun() 
+
+    except Exception as e:
+        with output_container:
+            st.error(f"Error updating table: {e}")
 
     except Exception as e:
         with output_container:

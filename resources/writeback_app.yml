@@ -1,8 +1,8 @@
 resources:
   apps:
-    price_update:
-      name: "price-update"
+    writeback_app:
+      name: "writeback-app"
       description: "App which manages price updates"
 
       # The location of the source code for the app.
-      source_code_path: ../apps/price-update
+      source_code_path: ../apps/writeback_app

@@ -1,5 +1,5 @@
 import pytest
-from app import apply_expr
+from apps.writeback_app.app import apply_expr
 
 def test_apply_expr_with_column_value():
     global expr, display_column
