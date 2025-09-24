@@ -1,6 +1,8 @@
 import re
 import pandas as pd
 
+TABLE_NAME = "app_demos.writeback.products"
+
 def apply_expr(value, expr, display_column):
     """Safely evaluate math expression with given column substituted."""
     safe_expr = expr.replace(display_column, str(value))

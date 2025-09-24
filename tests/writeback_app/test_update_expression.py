@@ -1,5 +1,5 @@
 import pandas as pd
-from apps.writeback_app.app import generate_update_statements, TABLE_NAME
+from apps.writeback_app.functions import generate_update_statements, TABLE_NAME
 
 def test_generate_update_statements():
     temp_df = pd.DataFrame({
