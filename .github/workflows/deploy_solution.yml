@@ -24,17 +24,24 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest tests/ --maxfail=1 --disable-warnings -q
+        run: |
+          PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
-      - name: Configure Databricks CLI
+      - name: Validate Databricks Bundle
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          SQL_WAREHOUSE_ID: ${{ secrets.SQL_WAREHOUSE_ID }}
         run: |
-          databricks configure --token <<< "$DATABRICKS_HOST\n$DATABRICKS_TOKEN"
+          databricks bundle validate --t dev
 
-      - name: Deploy Databricks bundles
-        run: databricks bundle deploy --all
+      - name: Deploy Databricks bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          SQL_WAREHOUSE_ID: ${{ secrets.SQL_WAREHOUSE_ID }}
+        run: |
+          databricks bundle deploy --t dev
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
