@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-from databricks import sql
 from databricks.sdk.core import Config
 
 
@@ -19,6 +18,7 @@ cfg = Config()
 
 @st.cache_resource
 def get_connection():
+    from databricks import sql 
     return sql.connect(
         server_hostname=cfg.host,
         http_path=WAREHOUSE_HTTP_PATH,
