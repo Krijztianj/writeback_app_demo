@@ -1,10 +1,13 @@
 import streamlit as st
-from utils import get_connection, init_products_table, read_table, execute_statements, TABLE_NAME
+from utils import get_connection, table_exists, init_products_table, read_table, execute_statements, TABLE_NAME
 from functions import apply_expr, calculate_profit_impact, generate_update_statements
 from pyspark.sql import SparkSession
 
-spark = SparkSession.builder.getOrCreate()
-
+@st.cache_resource
+def ensure_table(conn, table_name):
+    if not table_exists(conn, table_name):
+        init_products_table(conn)
+    return True
 
 if "prices_updated" not in st.session_state:
     st.session_state.prices_updated = False
@@ -16,8 +19,7 @@ if st.session_state.prices_updated:
     st.session_state.prices_updated = False
 
 conn = get_connection()
-if not spark.catalog.tableExists(TABLE_NAME):
-    init_products_table(conn)
+ensure_table(conn, TABLE_NAME)
 df = read_table(conn)
 
 df_display = df[["product_id", "product_name", "cost_price", "sales_price"]].rename(
