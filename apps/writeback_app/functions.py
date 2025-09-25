@@ -1,14 +1,16 @@
 import re
 import pandas as pd
+from decimal import Decimal
 
 TABLE_NAME = "workspace.writeback.products"
 
 def apply_expr(value, expr, display_column):
     """Safely evaluate math expression with given column substituted."""
-    safe_expr = expr.replace(display_column, str(value))
-    if not re.fullmatch(r"[0-9+\-*/(). ]+", safe_expr):
+    # Replace column reference with 'val' so eval can use Decimal directly
+    safe_expr = expr.replace(display_column, "val")
+    if not re.fullmatch(r"[0-9+\-*/(). val]+", safe_expr):
         raise ValueError("Expression contains invalid characters")
-    return eval(safe_expr)
+    return eval(safe_expr, {"val": Decimal(value), "Decimal": Decimal})
 
 def calculate_profit_impact(df: pd.DataFrame, expr: str, display_column: str) -> float:
     """Calculate profit impact (%) from applying expression to a column."""
