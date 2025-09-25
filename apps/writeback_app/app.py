@@ -74,3 +74,11 @@ elif update_pressed:
 elif profit_pressed:
     try:
         profit_impact_pct = calculate_profit_impact(df_display, expr, display_column)
+        with output_container:
+            st.subheader("Profit Analysis")
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Old Profit", f"{(df_display['Sales Price'] - df_display['Cost Price']).sum():.2f}")
+            col2.metric("New Profit", f"{(st.session_state.new_df['Sales Price'] - st.session_state.new_df['Cost Price']).sum():.2f}")
+            col3.metric("Profit Impact (%)", f"{profit_impact_pct:.2f}%")
+    except Exception as e:
+        st.error(f"Error calculating profit impact: {e}")
