@@ -31,9 +31,13 @@ jobs:
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
       - name: Validate Databricks Bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: databricks bundle validate -t dev
 
       - name: Deploy Databricks bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: databricks bundle deploy -t dev
 
       - name: Run all Databricks apps
