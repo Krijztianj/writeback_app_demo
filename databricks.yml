@@ -13,4 +13,4 @@ targets:
     mode: development
     default: true
     workspace:
-      host: ${var.host}
+      host: ""
