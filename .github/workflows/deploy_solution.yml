@@ -47,4 +47,7 @@ jobs:
           databricks bundle deploy -t dev
 
       - name: Run all Databricks apps
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: python run_all_apps.py
