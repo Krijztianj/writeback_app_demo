@@ -38,7 +38,6 @@ def get_connection():
 def init_products_table(conn):
     """Create products table if it does not exist."""
     with conn.cursor() as cursor:
-        cursor.execute(catalog_ddl)
         cursor.execute(schema_ddl)
         cursor.execute(table_ddl)
 
