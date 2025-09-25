@@ -5,10 +5,9 @@ cfg = Config()
 WAREHOUSE_HTTP_PATH = "/sql/1.0/warehouses/5eced0d6af754723"
 TABLE_NAME = "app_demos.writeback.products"
 
-products_ddl = f"""
-CREATE CATALOG IF NOT EXISTS app_demos;
-CREATE SCHEMA IF NOT EXISTS app_demos.writeback;
-
+catalog_ddl = f"""CREATE CATALOG IF NOT EXISTS app_demos"""
+schema_ddl = f"""CREATE SCHEMA IF NOT EXISTS app_demos.writeback"""
+table_ddl = f"""
 CREATE TABLE IF NOT EXISTS app_demos.writeback.products AS 
 
 with product as (
@@ -40,7 +39,10 @@ def get_connection():
 def init_products_table(conn):
     """Create products table if it does not exist."""
     with conn.cursor() as cursor:
-        cursor.execute(products_ddl)
+        cursor.execute(catalog_ddl)
+        cursor.execute(schema_ddl)
+        cursor.execute(table_ddl)
+
 
 def read_table(conn):
     query = f"""
