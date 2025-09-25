@@ -3,7 +3,7 @@ from databricks.sdk.core import Config
 
 cfg = Config()
 WAREHOUSE_HTTP_PATH = "/sql/1.0/warehouses/5eced0d6af754723"
-TABLE_NAME = "app_demos.writeback.products"
+TABLE_NAME = "workspace.writeback.products"
 
 schema_ddl = f"""CREATE SCHEMA IF NOT EXISTS workspace.writeback"""
 table_ddl = f"""
