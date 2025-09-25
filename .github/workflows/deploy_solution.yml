@@ -31,14 +31,10 @@ jobs:
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
       - name: Validate Databricks Bundle
-        run: |
-          sed -i "s|\${var.DATABRICKS_HOST}|${DATABRICKS_HOST}|g" databricks.yml
-          databricks bundle validate -t dev
+        run: databricks bundle validate -t dev
 
       - name: Deploy Databricks bundle
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-        run: databricks bundle deploy -t dev
+        run: databricks bundle deploy -t dev --var "host=${{ secrets.DATABRICKS_HOST }}"
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
