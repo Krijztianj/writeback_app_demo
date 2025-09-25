@@ -9,4 +9,4 @@ targets:
     mode: development
     default: true
     workspace:
-      host: ${var.DATABRICKS_HOST}
+      host: ${env.DATABRICKS_HOST}
