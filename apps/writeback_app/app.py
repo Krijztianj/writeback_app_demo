@@ -1,6 +1,6 @@
 import streamlit as st
-from apps.writeback_app.utils import get_connection, read_table, execute_statements, TABLE_NAME
-from apps.writeback_app.functions import apply_expr, calculate_profit_impact, generate_update_statements
+from utils import get_connection, read_table, execute_statements, TABLE_NAME
+from functions import apply_expr, calculate_profit_impact, generate_update_statements
 
 if "prices_updated" not in st.session_state:
     st.session_state.prices_updated = False
