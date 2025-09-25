@@ -31,10 +31,10 @@ jobs:
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
       - name: Validate Databricks Bundle
-        run: databricks bundle validate --t dev
+        run: databricks bundle validate -t dev
 
       - name: Deploy Databricks bundle
-        run: databricks bundle deploy --t dev
+        run: databricks bundle deploy -t dev
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
