@@ -3,7 +3,7 @@ from utils import get_connection, table_exists, init_products_table, read_table,
 from functions import apply_expr, calculate_profit_impact, generate_update_statements
 
 @st.cache_resource
-def ensure_table(conn, table_name):
+def ensure_table(_conn, table_name):
     if not table_exists(conn, table_name):
         init_products_table(conn)
     return True
