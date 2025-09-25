@@ -1,10 +1,6 @@
 bundle:
   name: databricks_app
 
-variables:
-  host:
-    default: none
-
 include:
   - resources/*.yml
 
