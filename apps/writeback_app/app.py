@@ -3,7 +3,7 @@ from utils import get_connection, table_exists, init_products_table, read_table,
 from functions import apply_expr, calculate_profit_impact, generate_update_statements
 
 @st.cache_resource
-def ensure_table(_conn, table_name):
+def setup_resources(_conn, table_name):
     if not table_exists(conn, table_name):
         init_products_table(conn)
     return True
@@ -18,7 +18,7 @@ if st.session_state.prices_updated:
     st.session_state.prices_updated = False
 
 conn = get_connection()
-ensure_table(conn, TABLE_NAME)
+setup_resources(conn, TABLE_NAME)
 df = read_table(conn)
 
 df_display = df[["product_id", "product_name", "cost_price", "sales_price"]].rename(
