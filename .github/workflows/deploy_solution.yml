@@ -24,9 +24,7 @@ jobs:
           pip install -r requirements.txt
           
       - name: Install Databricks CLI
-        uses: databricks/setup-cli@v0
-        with:
-          version: latest
+        uses: databricks/setup-cli@main
 
       - name: Run tests
         run: |
