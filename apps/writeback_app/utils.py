@@ -5,10 +5,9 @@ cfg = Config()
 WAREHOUSE_HTTP_PATH = "/sql/1.0/warehouses/5eced0d6af754723"
 TABLE_NAME = "app_demos.writeback.products"
 
-catalog_ddl = f"""CREATE CATALOG IF NOT EXISTS app_demos"""
-schema_ddl = f"""CREATE SCHEMA IF NOT EXISTS app_demos.writeback"""
+schema_ddl = f"""CREATE SCHEMA IF NOT EXISTS workspace.writeback"""
 table_ddl = f"""
-CREATE TABLE IF NOT EXISTS app_demos.writeback.products AS 
+CREATE TABLE IF NOT EXISTS workspace.writeback.products AS 
 
 with product as (
 select distinct product 
