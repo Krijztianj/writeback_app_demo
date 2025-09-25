@@ -33,3 +33,4 @@ def execute_statements(conn, statements):
     """Execute a list of SQL statements using the given connection."""
     with conn.cursor() as cursor:
         for stmt in statements:
+            cursor.execute(stmt)
