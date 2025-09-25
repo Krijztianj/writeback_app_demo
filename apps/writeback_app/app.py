@@ -16,7 +16,7 @@ df = read_table(conn)
 
 df_display = df[["product_id", "product_name", "cost_price", "sales_price"]].rename(
     columns={
-	@@ -86,108 +21,65 @@ def execute_statements(conn, statements):
+        "cost_price": "Cost Price",
         "sales_price": "Sales Price"
     }
 )
