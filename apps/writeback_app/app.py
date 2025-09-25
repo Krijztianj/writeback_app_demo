@@ -1,7 +1,6 @@
 import streamlit as st
 from utils import get_connection, table_exists, init_products_table, read_table, execute_statements, TABLE_NAME
 from functions import apply_expr, calculate_profit_impact, generate_update_statements
-from pyspark.sql import SparkSession
 
 @st.cache_resource
 def ensure_table(conn, table_name):
