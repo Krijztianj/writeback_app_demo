@@ -1,6 +1,10 @@
 bundle:
   name: databricks_app
 
+variables:
+  host:
+    default: none
+
 include:
   - resources/*.yml
 
@@ -8,5 +12,3 @@ targets:
   dev:
     mode: development
     default: true
-    workspace:
-      host: ${env.DATABRICKS_HOST}
