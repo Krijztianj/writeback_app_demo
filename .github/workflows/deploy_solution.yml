@@ -30,11 +30,19 @@ jobs:
         run: |
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
-      - name: Validate Databricks Bundle
-        run: databricks bundle validate -t dev
+      - name: Validate Databricks bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        run: |
+          echo "Validating the Databricks Asset Bundle"
+          databricks bundle validate -t dev --var "host=${DATABRICKS_HOST}"
 
       - name: Deploy Databricks bundle
-        run: databricks bundle deploy -t dev --var "host=${{ secrets.DATABRICKS_HOST }}"
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        run: |
+          echo "Deploying the Databricks Asset Bundle"
+          databricks bundle deploy -t dev --var "host=${DATABRICKS_HOST}"
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
