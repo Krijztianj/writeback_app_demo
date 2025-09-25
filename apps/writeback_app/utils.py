@@ -37,6 +37,7 @@ def get_connection():
 
 def table_exists(conn, table_name: str) -> bool:
     cursor = conn.cursor()
+    table_name = table_name.split(".")[-1]
     cursor.execute(
         "SELECT table_name FROM system.information_schema.tables WHERE name=?",
         (table_name,),
