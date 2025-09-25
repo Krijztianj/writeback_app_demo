@@ -38,7 +38,7 @@ def get_connection():
 def table_exists(conn, table_name: str) -> bool:
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+        "SELECT name FROM system.information_schema.tables WHERE name=?",
         (table_name,),
     )
     return cursor.fetchone() is not None
