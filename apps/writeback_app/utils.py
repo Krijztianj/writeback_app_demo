@@ -35,6 +35,14 @@ def get_connection():
         credentials_provider=lambda: cfg.authenticate
     )
 
+def table_exists(conn, table_name: str) -> bool:
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+        (table_name,),
+    )
+    return cursor.fetchone() is not None
+
 def init_products_table(conn):
     """Create products table if it does not exist."""
     with conn.cursor() as cursor:
