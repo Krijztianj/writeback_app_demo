@@ -2,7 +2,6 @@ import pytest
 from apps.writeback_app.functions import apply_expr
 
 def test_apply_expr_invalid_characters():
-    global expr, display_column
     display_column = "Cost Price"
     
     unsafe_expressions = [
@@ -12,7 +11,6 @@ def test_apply_expr_invalid_characters():
         "100; import sys"
     ]
     
-    for e in unsafe_expressions:
-        expr = e
+    for expr in unsafe_expressions:
         with pytest.raises(ValueError):
-            apply_expr(100)
+            apply_expr(100, expr, display_column)

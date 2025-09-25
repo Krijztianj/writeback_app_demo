@@ -24,8 +24,8 @@ def test_generate_update_statements():
         """
     ]
 
-    # Strip whitespace for safer comparison
-    statements = [s.strip() for s in statements]
-    expected = [s.strip() for s in expected]
+    # Normalize both sides by stripping whitespace and line breaks
+    normalized_statements = [" ".join(s.split()) for s in statements]
+    normalized_expected = [" ".join(s.split()) for s in expected]
 
-    assert statements == expected
+    assert normalized_statements == normalized_expected
