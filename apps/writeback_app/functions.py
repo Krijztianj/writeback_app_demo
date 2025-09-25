@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 
-TABLE_NAME = "app_demos.writeback.products"
+TABLE_NAME = "workspace.writeback.products"
 
 def apply_expr(value, expr, display_column):
     """Safely evaluate math expression with given column substituted."""
