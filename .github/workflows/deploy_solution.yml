@@ -22,26 +22,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@v0
+        with:
+          version: latest
 
       - name: Run tests
         run: |
           PYTHONPATH=. pytest tests/ --maxfail=1 --disable-warnings -q
 
       - name: Validate Databricks Bundle
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-          SQL_WAREHOUSE_ID: ${{ secrets.SQL_WAREHOUSE_ID }}
-        run: |
-          databricks bundle validate --t dev
+        run: databricks bundle validate --t dev
 
       - name: Deploy Databricks bundle
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-          SQL_WAREHOUSE_ID: ${{ secrets.SQL_WAREHOUSE_ID }}
-        run: |
-          databricks bundle deploy --t dev
+        run: databricks bundle deploy --t dev
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
