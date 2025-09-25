@@ -1,10 +1,11 @@
 import pandas as pd
+from decimal import Decimal
 from apps.writeback_app.functions import apply_expr
 
 def test_new_price_structure_preview():
     df = pd.DataFrame({
-        "Cost Price": [100, 50],
-        "Sales Price": [150, 80]
+        "Cost Price": [Decimal("100"), Decimal("50")],
+        "Sales Price": [Decimal("150"), Decimal("80")]
     })
     
     display_column = "Cost Price"
@@ -16,8 +17,8 @@ def test_new_price_structure_preview():
     )
     
     expected = pd.DataFrame({
-        "Cost Price": [110, 60],
-        "Sales Price": [150, 80]
+        "Cost Price": [Decimal("110"), Decimal("60")],
+        "Sales Price": [Decimal("150"), Decimal("80")]
     })
     
     pd.testing.assert_frame_equal(df_copy, expected)
