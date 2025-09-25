@@ -34,17 +34,13 @@ jobs:
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: |
-          echo "Validating the Databricks Asset Bundle"
-          databricks bundle validate -t dev
+        run: databricks bundle validate -t dev
 
       - name: Deploy Databricks bundle
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: |
-          echo "Deploying the Databricks Asset Bundle"
-          databricks bundle deploy -t dev
+        run: databricks bundle deploy -t dev
 
       - name: Run all Databricks apps
         env:
