@@ -35,14 +35,14 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: |
           echo "Validating the Databricks Asset Bundle"
-          databricks bundle validate -t dev --var "host=${DATABRICKS_HOST}"
+          databricks bundle validate -t dev
 
       - name: Deploy Databricks bundle
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         run: |
           echo "Deploying the Databricks Asset Bundle"
-          databricks bundle deploy -t dev --var "host=${DATABRICKS_HOST}"
+          databricks bundle deploy -t dev
 
       - name: Run all Databricks apps
         run: python run_all_apps.py
