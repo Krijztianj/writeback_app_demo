@@ -1,12 +1,22 @@
 bundle:
   name: databricks_app
+  databricks_cli_version: ">=0.283.0"
 
 include:
   - resources/*.yml
+
+variables:
+  environment:
+    default: ""
+  my_test_variable:
+    default: ""
 
 targets:
   dev:
     mode: development
     default: true
+    variables:
+      environment: dev
+      my_test_variable: "This is a test variable for dev"
     workspace:
-      host: ""
+      host: "https://dbc-381633f5-fe84.cloud.databricks.com/"

@@ -6,3 +6,17 @@ resources:
 
       # The location of the source code for the app.
       source_code_path: ../apps/writeback_app
+
+      config:
+        command: ["streamlit", "run", "app.py"]
+      
+        env:
+          - name: environment
+            value: ${var.environment}
+          - name: my_test_variable
+            value: ${var.my_test_variable}
+
+
+
+
+

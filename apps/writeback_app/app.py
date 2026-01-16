@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from utils import get_connection, table_exists, init_products_table, read_table, execute_statements, TABLE_NAME
 from functions import apply_expr, calculate_profit_impact, generate_update_statements
@@ -12,6 +13,12 @@ if "prices_updated" not in st.session_state:
     st.session_state.prices_updated = False
 
 st.title("Update Product Pricing")
+
+environment = os.getenv("environment", "environment not set")
+st.write(f"Current Environment: {environment}")
+
+my_test_variable = os.getenv("my_test_variable", "no value set")
+st.write(f"test_variable: {my_test_variable}")
 
 if st.session_state.prices_updated:
     st.success("Prices have been successfully updated!")
